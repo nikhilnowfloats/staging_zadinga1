@@ -14,11 +14,13 @@
     This is a placeholder for base href that will be replaced by the value of
     the `--base-href` argument provided to `flutter build`.
   -->
-  <!-- <base href="/"> -->
+  <base href="/">
 
   <meta charset="UTF-8">
   <meta content="IE=Edge" http-equiv="X-UA-Compatible">
   <meta name="description" content="A new Flutter project.">
+  <!-- <meta http-equiv="Content-Security-Policy" content="img-src 'self' data: 'unsafe-inline' 'unsafe-eval';"> -->
+
 
   <!-- iOS meta tags & icons -->
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -36,6 +38,7 @@
     // Import the functions you need from the SDKs you need
     import { initializeApp } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-app.js";
     import { getAnalytics } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-analytics.js";
+    import { getMessaging} from "https://www.gstatic.com/firebasejs/9.23.0/firebase-messaging.js"
     // TODO: Add SDKs for Firebase products that you want to use
     // https://firebase.google.com/docs/web/setup#available-libraries
   
@@ -59,10 +62,15 @@
   
   <script>
     // The value below is injected by flutter build, do not touch.
-    var serviceWorkerVersion = "1600119873";
+    const serviceWorkerVersion = "3668566727";
   </script>
   <!-- This script adds the flutter initialization JS code -->
   <script src="flutter.js" defer></script>
+
+  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBBg_2Eu1eTInYQ2nUa3vXHEQmYle09b8k"></script>
+  <script
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBBg_2Eu1eTInYQ2nUa3vXHEQmYle09b8k&libraries=drawing,visualization,places">
+  </script>
 </head>
 <body>
   <script>
@@ -79,13 +87,29 @@
       });
     });
   </script>
-  <script src="//cdnjs.cloudflare.com/ajax/libs/pdf.js/2.4.456/pdf.min.js"></script>
-  <script type="text/javascript">
-     pdfjsLib.GlobalWorkerOptions.workerSrc = "//cdnjs.cloudflare.com/ajax/libs/pdf.js/2.4.456/pdf.worker.min.js";
+  <script src="main.dart.js" type="application/javascript"></script>
+  <script>
+        if ('serviceWorker' in navigator) {
+           // Service workers are supported. Use them.
+           window.addEventListener('load', function () {
+             // ADD THIS LINE
+             navigator.serviceWorker.register('/firebase-messaging-sw.js');
+ 
+             // Wait for registration to finish before dropping the <script> tag.
+             // Otherwise, the browser will load the script multiple times,
+             // potentially different versions.
+             var serviceWorkerUrl = 'flutter_service_worker.js?v=' + serviceWorkerVersion;
+             //  ...
+           });
+       }
   </script>
   <script src="//cdnjs.cloudflare.com/ajax/libs/pdf.js/2.4.456/pdf.min.js"></script>
   <script type="text/javascript">
-     pdfjsLib.GlobalWorkerOptions.workerSrc = "//cdnjs.cloudflare.com/ajax/libs/pdf.js/2.4.456/pdf.worker.min.js";
+    pdfjsLib.GlobalWorkerOptions.workerSrc = "//cdnjs.cloudflare.com/ajax/libs/pdf.js/2.4.456/pdf.worker.min.js";
+  </script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/pdf.js/2.4.456/pdf.min.js"></script>
+  <script type="text/javascript">
+    pdfjsLib.GlobalWorkerOptions.workerSrc = "//cdnjs.cloudflare.com/ajax/libs/pdf.js/2.4.456/pdf.worker.min.js";
   </script>
 </body>
 </html>
