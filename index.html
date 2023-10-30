@@ -36,7 +36,7 @@
 
   <script>
     // The value below is injected by flutter build, do not touch.
-    const serviceWorkerVersion = "2713602036";
+    const serviceWorkerVersion = "4213228939";
   </script>
   <!-- This script adds the flutter initialization JS code -->
   <script src="flutter.js" defer></script>
@@ -67,16 +67,30 @@
     });
   </script>
   <script>
+    importScripts('https://www.gstatic.com/firebasejs/8.4.1/firebase-app.js');
+importScripts('https://www.gstatic.com/firebasejs/8.4.1/firebase-messaging.js');
         if ('serviceWorker' in navigator) {
            // Service workers are supported. Use them.
            window.addEventListener('load', function () {
              // ADD THIS LINE
-             navigator.serviceWorker.register('/firebase-messaging-sw.js');
+             const firebaseConfig = {
+    apiKey: "AIzaSyBewnCZ-9S9fNmF0WiTVN2BoTuT3IwE2uk",
+    authDomain: "zadinga-dev.firebaseapp.com",
+    databaseURL: "https://zadinga-dev.firebaseio.com",
+    projectId: "zadinga-dev",
+    storageBucket: "zadinga-dev.appspot.com",
+    messagingSenderId: "1016845239760",
+    appId: "1:1016845239760:web:d778081e790b6c7b8fa5d5",
+    measurementId: "G-L0ZHLESS6Z"
+ };
+  firebase.initializeApp(firebaseConfig);
+  const messaging = firebase.messaging();
+            //  navigator.serviceWorker.register('/firebase-messaging-sw.js');
  
              // Wait for registration to finish before dropping the <script> tag.
              // Otherwise, the browser will load the script multiple times,
              // potentially different versions.
-             var serviceWorkerUrl = 'flutter_service_worker.js?v=' + serviceWorkerVersion;
+            //  var serviceWorkerUrl = 'flutter_service_worker.js?v=' + serviceWorkerVersion;
              //  ...
            });
        }
