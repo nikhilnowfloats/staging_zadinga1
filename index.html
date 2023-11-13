@@ -36,15 +36,15 @@
 
   <script>
     // The value below is injected by flutter build, do not touch.
-    const serviceWorkerVersion = "358800989";
+    const serviceWorkerVersion = "2098493492";
   </script>
-  <!-- This script adds the flutter initialization JS code -->
-  <script src="flutter.js" defer></script>
+   
 
-  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBBg_2Eu1eTInYQ2nUa3vXHEQmYle09b8k"></script>
-  <script
-    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBBg_2Eu1eTInYQ2nUa3vXHEQmYle09b8k&libraries=drawing,visualization,places">
-  </script>
+
+  <!-- This script adds the flutter initialization JS code -->
+  <!-- TODO: ADD PRODUCTION KEYS FOR MAPS -->
+  <script src="flutter.js" defer></script>
+  <script src = "https://cdnjs.cloudflare.com/ajax/libs/howler/2.2.3/howler.min.js"></script>
 </head>
 <body>
   <script type="text/javascript">
@@ -67,41 +67,45 @@
     });
   </script>
   <script>
-    importScripts('https://www.gstatic.com/firebasejs/8.4.1/firebase-app.js');
-  importScripts('https://www.gstatic.com/firebasejs/8.4.1/firebase-messaging.js');
         if ('serviceWorker' in navigator) {
            // Service workers are supported. Use them.
            window.addEventListener('load', function () {
              // ADD THIS LINE
-             const firebaseConfig = {
-    apiKey: "AIzaSyBewnCZ-9S9fNmF0WiTVN2BoTuT3IwE2uk",
-    authDomain: "zadinga-dev.firebaseapp.com",
-    databaseURL: "https://zadinga-dev.firebaseio.com",
-    projectId: "zadinga-dev",
-    storageBucket: "zadinga-dev.appspot.com",
-    messagingSenderId: "1016845239760",
-    appId: "1:1016845239760:web:d778081e790b6c7b8fa5d5",
-    measurementId: "G-L0ZHLESS6Z"
- };
-  firebase.initializeApp(firebaseConfig);
-  const messaging = firebase.messaging();
-            //  navigator.serviceWorker.register('/firebase-messaging-sw.js');
+             navigator.serviceWorker.register('/firebase-messaging-sw.js');
  
              // Wait for registration to finish before dropping the <script> tag.
              // Otherwise, the browser will load the script multiple times,
              // potentially different versions.
-            //  var serviceWorkerUrl = 'flutter_service_worker.js?v=' + serviceWorkerVersion;
+             var serviceWorkerUrl = 'flutter_service_worker.js?v=' + serviceWorkerVersion;
              //  ...
            });
        }
   </script>
-  <script src="//cdnjs.cloudflare.com/ajax/libs/pdf.js/2.4.456/pdf.min.js"></script>
-  <script type="text/javascript">
-    pdfjsLib.GlobalWorkerOptions.workerSrc = "//cdnjs.cloudflare.com/ajax/libs/pdf.js/2.4.456/pdf.worker.min.js";
+  <script>
+
+    const channel = new BroadcastChannel('audio-control');
+    channel.addEventListener('message', (event) => {
+        if (event.data === 'play-audio') {
+          var sound = new Howl({
+            src: ['order_sound.mp3']  // Replace with the path to your audio file
+          });
+          // Play the sound
+          sound.play();
+          // Send a message to the parent frame (Flutter web application)
+          setTimeout(function() {
+                alert("You have received a new order in Zadinga!\n Please head to the 'Order' tab for more details");
+            }, 1000); //
+          // window.parent.postMessage({ message: 'Hello from JavaScript' }, '*');
+        }
+    });
+
+    
   </script>
   <script src="//cdnjs.cloudflare.com/ajax/libs/pdf.js/2.4.456/pdf.min.js"></script>
   <script type="text/javascript">
     pdfjsLib.GlobalWorkerOptions.workerSrc = "//cdnjs.cloudflare.com/ajax/libs/pdf.js/2.4.456/pdf.worker.min.js";
+  </script>
+  <script src="https://unpkg.com/pica/dist/pica.min.js" ></script>
   </script>
 </body>
 </html>
